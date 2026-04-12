@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:people_browser_app/features/people/data/model/person.dart';
 import 'package:people_browser_app/features/people/data/repository/people_repo_impl.dart';
 import 'package:people_browser_app/features/people/domain/repository/people_repo.dart';
 import 'package:people_browser_app/features/people/presentation/provider/people_state.dart';
@@ -19,7 +20,7 @@ class PeopleProvider extends StateNotifier<PeopleState> {
 
       state = state.copyWith(
         isLoading: false,
-        data: data,
+        peopleData: data,
         filtered: data,
       );
     } catch (e) {
@@ -31,13 +32,25 @@ class PeopleProvider extends StateNotifier<PeopleState> {
   }
 
   void search(String query) {
+    final data = state.peopleData;
+    if (data == null) return;
+
     if (query.isEmpty) {
-      state = state.copyWith(filtered: state.data);
-    } else {
-      final result = state.data
-          .where((e) => e.name.toLowerCase().contains(query.toLowerCase()))
-          .toList();
-      state = state.copyWith(filtered: result);
+      state = state.copyWith(filtered: data);
+      return;
     }
+
+    final q = query.toLowerCase();
+    final filteredResults = data.results
+        .where((e) {
+          final fullName =
+              '${e.name.first} ${e.name.last}'.toLowerCase();
+          return fullName.contains(q);
+        })
+        .toList();
+
+    state = state.copyWith(
+      filtered: PeopleModel(results: filteredResults, info: data.info),
+    );
   }
 }

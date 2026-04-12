@@ -1,29 +1,31 @@
 import '../../data/model/person.dart';
 
+const _unsetError = Object();
+
 class PeopleState {
   final bool isLoading;
-  final List<Person> data;
-  final List<Person> filtered;
+  final PeopleModel? peopleData;
+  final PeopleModel? filtered;
   final String? error;
 
   const PeopleState({
     this.isLoading = false,
-    this.data = const [],
-    this.filtered = const [],
+    this.peopleData,
+    this.filtered,
     this.error,
   });
 
   PeopleState copyWith({
     bool? isLoading,
-    List<Person>? data,
-    List<Person>? filtered,
-    String? error,
+    PeopleModel? peopleData,
+    PeopleModel? filtered,
+    Object? error = _unsetError,
   }) {
     return PeopleState(
       isLoading: isLoading ?? this.isLoading,
-      data: data ?? this.data,
+      peopleData: peopleData ?? this.peopleData,
       filtered: filtered ?? this.filtered,
-      error: error,
+      error: identical(error, _unsetError) ? this.error : error as String?,
     );
   }
 }
