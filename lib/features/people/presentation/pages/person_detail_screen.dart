@@ -23,29 +23,15 @@ class PersonDetailScreen extends StatelessWidget {
           parent: AlwaysScrollableScrollPhysics(),
         ),
         slivers: [
-          SliverAppBar.large(
-            pinned: true,
-            backgroundColor: scheme.surface,
-            surfaceTintColor: Colors.transparent,
-            leading: IconButton.filledTonal(
-              onPressed: () => Navigator.of(context).maybePop(),
-              icon: const Icon(Icons.arrow_back_rounded),
-              style: IconButton.styleFrom(
-                backgroundColor: scheme.surfaceContainerHighest,
-              ),
-            ),
-            title: Text(
-              person.fullName,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
+          ///* ══════════════════════════════╡ PROFILE ╞══════════════════════════════ */
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  const SizedBox(height: 80,),
+                  ///* ══════════════════════════════╡ PICTURE ╞══════════════════════════════ */
                   Center(
                     child: Hero(
                       tag: person.heroTag,
@@ -53,6 +39,7 @@ class PersonDetailScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 24),
+                  ///* ══════════════════════════════╡ NAME ╞══════════════════════════════ */
                   Text(
                     person.fullName,
                     style: textTheme.headlineSmall?.copyWith(
@@ -62,6 +49,7 @@ class PersonDetailScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 6),
+                  ///* ══════════════════════════════╡ EMAIL ╞══════════════════════════════ */
                   Text(
                     person.email,
                     style: textTheme.titleSmall?.copyWith(
@@ -71,6 +59,7 @@ class PersonDetailScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 20),
+                  ///* ══════════════════════════════╡ LOC, AGE, GENDER ╞══════════════════════════════ */
                   Wrap(
                     alignment: WrapAlignment.center,
                     spacing: 10,
@@ -92,6 +81,7 @@ class PersonDetailScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 28),
+                  ///* ══════════════════════════════╡ CONTACT ╞══════════════════════════════ */
                   _SectionCard(
                     title: "Contact",
                     children: [
@@ -108,6 +98,7 @@ class PersonDetailScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 14),
+                  ///* ══════════════════════════════╡ LOCATION ╞══════════════════════════════ */
                   _SectionCard(
                     title: "Location",
                     children: [
@@ -119,6 +110,7 @@ class PersonDetailScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 14),
+                  ///* ══════════════════════════════╡ ACCOUNT ╞══════════════════════════════ */
                   _SectionCard(
                     title: "Account",
                     children: [
