@@ -15,8 +15,10 @@ class PeopleListScreen extends ConsumerStatefulWidget {
 class _PeopleListScreenState extends ConsumerState<PeopleListScreen> {
   @override
   void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((callback){
+      ref.read(peopleProvider.notifier).loadPeople();
+    });
     super.initState();
-    Future.microtask(() => ref.read(peopleProvider.notifier).loadPeople());
   }
 
   @override
